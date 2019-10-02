@@ -65,6 +65,17 @@ describe('Auth Router', () => {
         expect(token.id).toEqual(id);
         expect(token.role).toBeDefined();
       });
+
+      it('cannot signin with the same bearer token twice', async () => {
+        expect(savedToken).toBeDefined();
+        expect(savedToken).not.toBe('');
+
+        let response2 = await mockRequest
+          .post('/signin')
+          .set('Authorization', `Bearer ${savedToken}`)
+          .expect(401);
+
+      });
     });  
   });
 });
