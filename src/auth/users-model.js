@@ -54,10 +54,10 @@ users.statics.authenticateToken = async function(token) {
     }
   }
   catch(error) {
-      console.warn('TOKEN ERRRRORRRRR! :', error);
-      return null;
+    console.warn('TOKEN ERRRRORRRRR! :', error);
+    return null;
   }
-}
+};
 
 users.methods.comparePassword = function(password) {
   return bcrypt.compare( password, this.password )

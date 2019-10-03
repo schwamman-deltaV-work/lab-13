@@ -9,18 +9,18 @@ module.exports = async (req, res, next) => {
     let [authType, authString] = req.headers.authorization.split(/\s+/);
     
     switch( authType.toLowerCase() ) {
-      case 'basic': 
-        return _authBasic(authString);
-      case 'bearer':
-        try {
-          return await _authBearer(authString);
-        }
-        catch(err) {
-          console.log('In catch');
-          return _authError();
-        }
-      default: 
+    case 'basic': 
+      return _authBasic(authString);
+    case 'bearer':
+      try {
+        return await _authBearer(authString);
+      }
+      catch(err) {
+        console.log('In catch');
         return _authError();
+      }
+    default: 
+      return _authError();
     }
   }
   catch(err) {
@@ -46,7 +46,7 @@ module.exports = async (req, res, next) => {
     let user = await User.authenticateToken(token);
     if(usedTokens.includes(token)) {
       console.log('Before throw');
-      throw "Token Has Already Been Used";
+      throw 'Token Has Already Been Used';
     } else {
       usedTokens.push(token);
     }
